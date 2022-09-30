@@ -1,0 +1,128 @@
+
+import pandapower as pp
+import pandapower.networks as nw
+import pandapower.plotting as pplt
+import matplotlib.pyplot as plt
+from pandapower.plotting.plotly import pf_res_plotly
+# Step 1 Optimization Energy Networks
+
+
+#-----------------------------    STEP 1.2    -----------------------
+
+print("-----------------------------    STEP 1.2    -----------------------")
+
+net = nw.create_cigre_network_mv()
+
+net
+vmax = 1.1
+vmin = 0.9
+max_ll = 100
+
+lines = net.line.index 
+N = list()
+
+for l in lines:
+    net.line.loc[l,"in_service"] = False
+    pp.runpp(net)
+    
+    
+    if net.res_bus.vm_pu.max() > vmax or net.res_bus.vm_pu.min() < vmin or net.res_line.loading_percent.max() > max_ll:
+        N.append(l)
+        print("critical line")
+        print(l)
+        net.res_bus.vm_pu
+        net.res_bus.vm_pu
+        net.res_line.loading_percent
+        
+    net.line.loc[l,"in_service"] = True
+    
+#ax = pplt.simple_plot(net, show_plot = False)
+#clc = pplt.create_line_collection(net, N, color ="r", linewidth = 3.,use_bus_geodata=(True))
+#pplt.draw_collections([clc], ax=ax)
+#plt.show()
+print(N)
+
+
+print("-----------------------------    STEP 1.3    -----------------------")
+#-----------------------------    STEP 1.3    -----------------------
+net = nw.create_cigre_network_mv()
+
+net
+vmax_3 = 1.05
+vmin_3 = 0.95
+max_ll_3 = 100
+
+lines = net.line.index 
+N_3 = list()
+overvoltage_line= list()
+overvoltage_value= list()
+
+undervoltage_line= list()
+undervoltage_value= list()
+
+overloaded_line= list()
+overloaded_value= list()
+
+for l in lines:
+    net.line.loc[l,"in_service"] = False
+    pp.runpp(net)
+    overvoltage_line= list()
+    overvoltage_value= list()
+
+    undervoltage_line= list()
+    undervoltage_value= list()
+
+    overloaded_line= list()
+    overloaded_value= list()
+    
+    if net.res_bus.vm_pu.max() > vmax_3 or net.res_bus.vm_pu.min() < vmin_3 or net.res_line.loading_percent.max() > max_ll_3:
+        N_3.append(l)
+        print("Disconnected line")
+        print(l)
+        #print("Bus voltage")
+        #print(net.res_bus.vm_pu)
+        #print("Loading percent")
+        #print(net.res_line.loading_percent)
+        
+        for i in lines:
+            if net.res_bus.vm_pu[i] > vmax_3:
+                overvoltage_line.append(i)
+                overvoltage_value.append(net.res_bus.vm_pu[i])
+                
+        overvoltage = overvoltage_line, overvoltage_value
+        
+        print("overvoltage")
+        print(overvoltage)
+        
+        for i in lines:
+            if net.res_bus.vm_pu[i] < vmin_3:
+                undervoltage_line.append(i)
+                undervoltage_value.append(net.res_bus.vm_pu[i])
+                
+        undervoltage = undervoltage_line, undervoltage_value
+        
+        print("Undervoltage")
+        print(undervoltage)
+        
+        for i in lines:
+            if net.res_line.loading_percent[i] > max_ll_3:
+                overloaded_line.append(i)
+                overloaded_value.append(net.res_line.loading_percent[i])
+                
+        overloaded = (overloaded_line, overloaded_value)
+        
+        print("Overloaded")
+        print(overloaded)
+      
+        
+    net.line.loc[l,"in_service"] = True
+    print()
+    
+print("      Critical lines:")
+print(N_3) 
+print()
+pf_res_plotly(net)
+ax = pplt.simple_plot(net, show_plot = False)
+clc = pplt.create_line_collection(net, N_3, color ="r", linewidth = 3.,use_bus_geodata=(True))
+pplt.draw_collections([clc], ax=ax)
+plt.show()
