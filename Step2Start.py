@@ -8,11 +8,11 @@ from pandapower.plotting.plotly import pf_res_plotly
 
 
 net = nw.create_cigre_network_mv()
-pp.create_bus(net, name='Bus CS 14', vn_kv=0.4, type='b', geodata=((8,4)))
+pp.create_bus(net, name='Bus CS 14', vn_kv=0.4, type='b', geodata=((10,3.5)))
 pp.create_bus(net, name='Bus CS 11', vn_kv=0.4, type='b', geodata=((2.5,7)))
-pp.create_bus(net, name='Bus CS 5', vn_kv=0.4, type='b', geodata=((0,7)))
-pp.create_bus(net, name='Bus CS 4', vn_kv=0.4, type='b', geodata=((1.5,9)))
-pp.create_bus(net, name='Bus CS 9', vn_kv=0.4, type='b', geodata=((5,4)))
+pp.create_bus(net, name='Bus CS 5', vn_kv=0.4, type='b', geodata=((-0.5,7)))
+pp.create_bus(net, name='Bus CS 4', vn_kv=0.4, type='b', geodata=((1,9)))
+pp.create_bus(net, name='Bus CS 9', vn_kv=0.4, type='b', geodata=((6,3.5)))
 
 
 pp.create_transformer(net, hv_bus=14, lv_bus= pp.get_element_index(net,'bus', 'Bus CS 14'), name='CS 14', std_type= '0.63 MVA 20/0.4 kV')
@@ -27,4 +27,3 @@ ax = pplt.simple_plot(net, show_plot = False)
 clc = pplt.create_line_collection(net, color ="g", linewidth = 3.,use_bus_geodata=(True))
 pplt.draw_collections([clc], ax=ax)
 plt.show()
-
