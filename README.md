@@ -7,7 +7,7 @@ Remember to always save a local version of your work and don't overwrite someone
 
 
 //////////////// Step 3 /////////////////////
-100 EVs
+100 EVs first 100 of data
 5 CS
 Big CS Plugs: 40
 Med CS Plugs: 20
