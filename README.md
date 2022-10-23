@@ -26,3 +26,7 @@ Bus 18 and 19 - 35 EVs
 1.05 vmax 0.95 vmin
 line loading 100%
 2/3/4/5/6/7/8/10/11/12/13/14
+
+//////////////// Step 4 /////////////////////
+
+4.2 - Manually adding lines would have no impact because our limiting factors is the trafo loading
