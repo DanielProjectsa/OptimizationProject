@@ -30,3 +30,6 @@ line loading 100%
 //////////////// Step 4 /////////////////////
 
 4.2 - Manually adding lines would have no impact because our limiting factors is the trafo loading
+#bus 15: 93 Evs + 15% = 107
+#bus 16, 17: 57 Evs + 15% = 66
+#bus 18, 19: 35 EVs + 15% = 40
