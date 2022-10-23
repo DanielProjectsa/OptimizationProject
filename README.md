@@ -22,3 +22,7 @@ Bus 16 and 17 - 57 EVs
 Bus 18 and 19 - 35 EVs
 
 
+3.4 - We only have critical lines with these values
+1.05 vmax 0.95 vmin
+line loading 100%
+2/3/4/5/6/7/8/10/11/12/13/14
